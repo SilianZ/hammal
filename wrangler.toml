@@ -1,9 +1,9 @@
 name = "hammal"
-account_id = "your account_id"
+account_id = "f5a368d0faee369d8b85e4a5f19a7183"
 main = "src/index.ts"
 workers_dev = true
 compatibility_date = "2024-06-08"
 
 kv_namespaces = [
-	 { binding = "HAMMAL_CACHE", id = "you kv id" }
+	 { binding = "HAMMAL_CACHE", id = "hammal" }
 ]
