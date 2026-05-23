@@ -4,6 +4,6 @@ declare global {
   const HAMMAL_CACHE: KVNamespace
 }
 
-addEventListener('fetch', (event) => {
-  event.respondWith(handleRequest(event.request))
+addEventListener('fetch', (Silian_event) => {
+  Silian_event.respondWith(handleRequest(Silian_event.request))
 })

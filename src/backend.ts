@@ -8,30 +8,30 @@ class Backend {
   private host: string;
   private tokenProvider: TokenProvider|undefined;
 
-  constructor(host: string, tokenProvider?: TokenProvider) {
-    this.host = host;
-    this.tokenProvider = tokenProvider
+  constructor(Silian_host: string, Silian_tokenProvider?: TokenProvider) {
+    this.host = Silian_host;
+    this.tokenProvider = Silian_tokenProvider
   }
 
-  async proxy(pathname: string, args: ProxyArgs): Promise<Response> {
-    const url = new URL(this.host)
-    url.pathname = pathname
-    const response = await fetch(url.toString(), {method: "GET", headers:args.headers, redirect: "follow"})
+  async proxy(Silian_pathname: string, Silian_args: ProxyArgs): Promise<Response> {
+    const Silian_url = new URL(this.host)
+    Silian_url.pathname = Silian_pathname
+    const Silian_response = await fetch(Silian_url.toString(), {method: "GET", headers:Silian_args.headers, redirect: "follow"})
     if (this.tokenProvider === undefined) {
-      return response
+      return Silian_response
     }
-    if (response.status !== 401) {
-      return response
+    if (Silian_response.status !== 401) {
+      return Silian_response
     }
 
-    const authenticateStr = response.headers.get("Www-Authenticate")
-    if (authenticateStr === null || this.tokenProvider === undefined) {
-      return response
+    const Silian_authenticateStr = Silian_response.headers.get("Www-Authenticate")
+    if (Silian_authenticateStr === null || this.tokenProvider === undefined) {
+      return Silian_response
     }
-    const token: Token = await this.tokenProvider.token(authenticateStr)
-    const authenticatedHeaders = new Headers(args.headers)
-    authenticatedHeaders.append("Authorization", `Bearer ${token.token}`)
-    return await fetch(url.toString(), {method: "GET", headers:authenticatedHeaders, redirect: "follow"})
+    const Silian_token: Token = await this.tokenProvider.token(Silian_authenticateStr)
+    const Silian_authenticatedHeaders = new Headers(Silian_args.headers)
+    Silian_authenticatedHeaders.append("Authorization", `Bearer ${Silian_token.token}`)
+    return await fetch(Silian_url.toString(), {method: "GET", headers:Silian_authenticatedHeaders, redirect: "follow"})
   }
 }
 
